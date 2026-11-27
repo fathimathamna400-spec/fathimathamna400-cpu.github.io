@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rivera | Creative Technologist & Full-Stack Engineer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        accent: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'cursor': 'cursor .75s step-end infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        cursor: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Nav */
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Subtle Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Modal Transitions */
+        #project-modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #project-modal-content {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 antialiased selection:bg-brand-500 selection:text-white overflow-x-hidden">
+
+    <!-- Sticky Glassmorphism Navigation -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav bg-white/75 dark:bg-slate-950/75 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        A
+                    </div>
+                    <span class="font-bold text-lg tracking-tight">Alex<span class="text-brand-500">.dev</span></span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="nav-link px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-section="home">Home</a>
+                    <a href="#about" class="nav-link px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-section="about">About</a>
+                    <a href="#projects" class="nav-link px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-section="projects">Projects</a>
+                    <a href="#experience" class="nav-link px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-section="experience">Experience</a>
+                    <a href="#contact" class="nav-link px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-section="contact">Contact</a>
+                </nav>
+
+                <!-- Right Controls: Theme Toggle & Mobile Menu Button -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button id="theme-toggle" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-all active:scale-95">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-slate-700"></i>
+                    </button>
+
+                    <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-500/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
+                        Let's Talk
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">
+                        <i data-lucide="menu" id="menu-icon-open" class="w-5 h-5"></i>
+                        <i data-lucide="x" id="menu-icon-close" class="w-5 h-5 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-1">
+            <a href="#home" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900">Home</a>
+            <a href="#about" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900">About</a>
+            <a href="#projects" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900">Projects</a>
+            <a href="#experience" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900">Experience</a>
+            <a href="#contact" class="mobile-nav-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section with Interactive Canvas Particles -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Interactive Background Canvas -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-60 dark:opacity-50"></canvas>
+        
+        <!-- Ambient Gradient Blobs -->
+        <div class="absolute top-1/4 -left-12 w-72 h-72 bg-brand-500/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob pointer-events-none"></div>
+        <div class="absolute bottom-1/4 -right-12 w-72 h-72 bg-accent-500/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob animation-delay-2000 pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm mb-8 backdrop-blur-sm">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300">Available for select freelance & full-time roles</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Hi, I'm <span class="text-gradient">Alex Rivera</span>.<br />
+                I build <span id="typed-text" class="text-slate-900 dark:text-white"></span><span class="inline-block w-1 h-9 sm:h-14 ml-1 bg-brand-500 align-middle animate-cursor"></span>
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
+                Senior Full-Stack Engineer & UI/UX Designer crafting high-performance web applications, intuitive design systems, and intelligent AI-powered tools.
+            </p>
+
+            <!-- Hero CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl text-base font-semibold bg-brand-600 hover:bg-brand-700 text-white shadow-lg shadow-brand-500/25 transition-all hover:-translate-y-0.5">
+                    <span>Explore My Work</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="#about" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl text-base font-semibold bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:-translate-y-0.5">
+                    <span>More About Me</span>
+                </a>
+            </div>
+
+            <!-- Social Links -->
+            <div class="mt-14 flex items-center justify-center gap-5">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/50 transition-all hover:-translate-y-1">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/50 transition-all hover:-translate-y-1">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/50 transition-all hover:-translate-y-1">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#contact" aria-label="Email" class="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/50 transition-all hover:-translate-y-1">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me & Interactive Skills Section -->
+    <section id="about" class="py-20 sm:py-28 bg-white dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">About Me</span>
+                <h2 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">Bridging Design & Engineering</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Passionate about turning complex problems into elegant, accessible, and scalable digital experiences.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Left Column: Bio & Quick Stats -->
+                <div class="lg:col-span-5 reveal space-y-6">
+                    <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="https://placehold.co/120x120/4f46e5/ffffff?text=AR" alt="Alex Rivera Portrait" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-brand-500/30">
+                            <div>
+                                <h3 class="font-bold text-lg">Alex Rivera</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">San Francisco, CA • Remote</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-sm sm:text-base">
+                            With over 6 years of experience in full-stack software development and product design, I specialize in architecting fast, resilient web applications from zero to scale.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                            When I'm not shipping code or refining micro-interactions, you'll find me contributing to open-source UI libraries, exploring generative AI workflows, or hiking coastal trails.
+                        </p>
+
+                        <!-- Metrics Grid -->
+                        <div class="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
+                            <div>
+                                <div class="text-2xl font-extrabold text-brand-600 dark:text-brand-400">6+</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Years Exp.</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-extrabold text-brand-600 dark:text-brand-400">40+</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Projects</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-extrabold text-brand-600 dark:text-brand-400">12k+</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">OSS Stars</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Categorized Skills -->
+                <div class="lg:col-span-7 reveal">
+                    <div class="p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <h3 class="font-bold text-xl">Technical Arsenal</h3>
+                            <!-- Interactive Skill Category Tabs -->
+                            <div id="skill-tabs" class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 self-start">
+                                <button data-skill-cat="frontend" class="skill-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-950 text-brand-600 dark:text-brand-400 shadow-sm transition-all">Frontend</button>
+                                <button data-skill-cat="backend" class="skill-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Backend</button>
+                                <button data-skill-cat="design" class="skill-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">Design & AI</button>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Skill Bars Container -->
+                        <div id="skills-container" class="space-y-5">
+                            <!-- Populated by JavaScript -->
+                        </div>
+
+                        <!-- Core Technology Pills -->
+                        <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+                            <p class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Also Experienced With</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">Docker & Kubernetes</span>
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">GraphQL</span>
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">Redis</span>
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">WebGL / Three.js</span>
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">CI/CD Pipelines</span>
+                                <span class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-brand-500 transition-colors cursor-default">WebSockets</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Showcase -->
+    <section id="projects" class="py-20 sm:py-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">Portfolio</span>
+                    <h2 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">Featured Projects</h2>
+                    <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-xl">Click any project card to explore architectural decisions, challenges solved, and live previews.</p>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div id="project-filters" class="flex flex-wrap gap-2">
+                    <button data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-brand-600 text-white shadow-md shadow-brand-500/20 transition-all">All</button>
+                    <button data-filter="web" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all">Web Apps</button>
+                    <button data-filter="ai" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all">AI / Tools</button>
+                    <button data-filter="design" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all">Design Systems</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Timeline Section -->
+    <section id="experience" class="py-20 sm:py-28 bg-white dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">Career Path</span>
+                <h2 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">Experience & Milestones</h2>
+            </div>
+
+            <!-- Vertical Timeline -->
+            <div class="relative border-l-2 border-slate-200 dark:border-slate-800 ml-3 sm:ml-6 space-y-12">
+                <!-- Timeline Item 1 -->
+                <div class="reveal relative pl-8 sm:pl-10">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-600 ring-4 ring-white dark:ring-slate-950"></span>
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500/40 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-bold text-lg">Staff Frontend Engineer</h3>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-brand-500/10 text-brand-600 dark:text-brand-400">2024 — Present</span>
+                        </div>
+                        <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">Nebula Cloud Technologies • San Francisco, CA</div>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Leading the core web platform architecture and design system team. Reduced bundle size by 42% and improved Core Web Vitals across 15+ enterprise micro-frontends.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="reveal relative pl-8 sm:pl-10">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-950"></span>
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500/40 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-bold text-lg">Senior Full-Stack Developer</h3>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400">2021 — 2024</span>
+                        </div>
+                        <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">Synthwave AI • Remote</div>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Built real-time collaborative canvas interfaces and low-latency streaming APIs serving over 250,000 monthly active creators.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="reveal relative pl-8 sm:pl-10">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-950"></span>
+                    <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-brand-500/40 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-bold text-lg">Product Engineer & UI Designer</h3>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400">2019 — 2021</span>
+                        </div>
+                        <div class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">CraftStudio Digital • Austin, TX</div>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Designed and shipped bespoke web applications, interactive data visualizations, and e-commerce storefronts for high-growth startups.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Contact Section -->
+    <section id="contact" class="py-20 sm:py-28">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">Get In Touch</span>
+                <h2 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">Let's Build Something Great</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Have a project in mind, a question, or just want to say hi? Drop a message below or copy my direct email.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Contact Info & Copy-to-Clipboard Card -->
+                <div class="lg:col-span-5 reveal space-y-6">
+                    <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-brand-600 to-indigo-800 text-white shadow-xl shadow-brand-500/20">
+                        <h3 class="text-xl font-bold mb-2">Direct Contact</h3>
+                        <p class="text-brand-100 text-sm mb-6 leading-relaxed">
+                            Prefer email over forms? Click below to copy my address directly to your clipboard.
+                        </p>
+
+                        <!-- Copy Email Widget -->
+                        <div class="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-between gap-2">
+                            <span id="email-text" class="font-mono text-xs sm:text-sm truncate select-all">hello@alexrivera.dev</span>
+                            <button id="copy-email-btn" class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-brand-700 hover:bg-brand-50 font-semibold text-xs transition-all active:scale-95">
+                                <i data-lucide="copy" id="copy-icon" class="w-3.5 h-3.5"></i>
+                                <i data-lucide="check" id="check-icon" class="w-3.5 h-3.5 hidden text-emerald-600"></i>
+                                <span id="copy-label">Copy</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-white/15 space-y-4 text-sm text-brand-100">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-accent-400 shrink-0"></i>
+                                <span>San Francisco, CA (PST / UTC-8)</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="clock" class="w-4 h-4 text-accent-400 shrink-0"></i>
+                                <span>Typical response time: &lt; 24 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validated Contact Form -->
+                <div class="lg:col-span-7 reveal">
+                    <form id="contact-form" novalidate class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Jane Doe" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm">
+                                <p id="name-error" class="hidden mt-1.5 text-xs text-rose-500">Please enter your name.</p>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="jane@example.com" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm">
+                                <p id="email-error" class="hidden mt-1.5 text-xs text-rose-500">Please enter a valid email address.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm">
+                                <option value="project">Project Inquiry / Freelance</option>
+                                <option value="hiring">Full-Time Opportunity</option>
+                                <option value="collab">Open Source / Collaboration</option>
+                                <option value="other">Just Saying Hello</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell me about your timeline, goals, or ideas..." required
+                                class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all text-sm resize-none"></textarea>
+                            <p id="message-error" class="hidden mt-1.5 text-xs text-rose-500">Please write a message (at least 10 characters).</p>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-lg shadow-brand-500/20 transition-all active:scale-[0.99]">
+                            <span>Send Message</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                        <!-- Inline Feedback Banner (Replaces alert) -->
+                        <div id="form-feedback" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 shrink-0"></i>
+                            <span>Thanks for reaching out! Your message has been received and I'll get back to you shortly.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-200/60 dark:border-slate-800/60 text-center text-sm text-slate-500 dark:text-slate-400">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; <span id="current-year"></span> Alex Rivera. Crafted with precision & caffeine.</p>
+            <div class="flex items-center gap-6">
+                <a href="#home" class="hover:text-brand-500 transition-colors">Back to Top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Case Study Modal Popup -->
+    <div id="project-modal" class="fixed inset-0 z-50 invisible opacity-0 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm" role="dialog" aria-modal="true">
+        <div id="project-modal-content" class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl transform scale-95">
+            <!-- Close Button -->
+            <button id="close-modal-btn" aria-label="Close Modal" class="absolute top-4 right-4 z-10 p-2.5 rounded-xl bg-slate-100/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Modal Banner Image -->
+            <div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <img id="modal-image" src="" alt="Project Preview" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span id="modal-category" class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-500/10 text-brand-600 dark:text-brand-400"></span>
+                    <span id="modal-year" class="text-xs font-mono text-slate-400"></span>
+                </div>
+
+                <h3 id="modal-title" class="text-2xl sm:text-3xl font-bold mb-3"></h3>
+                <p id="modal-description" class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6"></p>
+
+                <!-- Key Highlights / Case Study Details -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 mb-6">
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Key Architecture & Impact</h4>
+                    <ul id="modal-highlights" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+                </div>
+
+                <!-- Tech Stack Tags -->
+                <div class="mb-8">
+                    <h4 class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">Technologies Used</h4>
+                    <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Action Links -->
+                <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <a id="modal-live-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm transition-all">
+                        <span>Live Demo</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                    <a id="modal-repo-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm transition-all">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                        <span>Source Code</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Embedded Interactive Application Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Set Footer Year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            /* =========================================================
+               1. DARK / LIGHT THEME TOGGLE
+            ========================================================= */
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            // Check saved preference or default to dark
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            if (savedTheme === 'light') {
+                htmlElement.classList.remove('dark');
+            } else {
+                htmlElement.classList.add('dark');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                htmlElement.classList.toggle('dark');
+                const isDark = htmlElement.classList.contains('dark');
+                localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+            });
+
+            /* =========================================================
+               2. MOBILE NAVIGATION MENU
+            ========================================================= */
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('hidden', !isHidden);
+                menuIconClose.classList.toggle('hidden', isHidden);
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                });
+            });
+
+            /* =========================================================
+               3. DYNAMIC TYPING EFFECT IN HERO
+            ========================================================= */
+            const phrases = [
+                'scalable web apps.',
+                'delightful interfaces.',
+                'AI-powered tools.',
+                'design systems.'
+            ];
+            const typedTextEl = document.getElementById('typed-text');
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function typeLoop() {
+                const currentPhrase = phrases[phraseIndex];
+                
+                if (isDeleting) {
+                    typedTextEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typedTextEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 45 : 85;
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    typeSpeed = 1800; // Pause at end of phrase
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    typeSpeed = 400;
+                }
+
+                setTimeout(typeLoop, typeSpeed);
+            }
+            typeLoop();
+
+            /* =========================================================
+               4. INTERACTIVE HERO PARTICLE NETWORK CANVAS
+            ========================================================= */
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 130 };
+
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                initParticles();
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            window.addEventListener('mouseout', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    const isDark = htmlElement.classList.contains('dark');
+                    ctx.fillStyle = isDark ? 'rgba(129, 140, 248, 0.5)' : 'rgba(79, 70, 229, 0.35)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const count = Math.min(Math.floor((canvas.width * canvas.height) / 14000), 85);
+                for (let i = 0; i < count; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const isDark = htmlElement.classList.contains('dark');
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    // Connect nearby particles
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 110) {
+                            ctx.strokeStyle = isDark 
+                                ? `rgba(99, 102, 241, ${0.18 * (1 - dist / 110)})` 
+                                : `rgba(79, 70, 229, ${0.12 * (1 - dist / 110)})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    // Connect to mouse pointer
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = particles[i].x - mouse.x;
+                        const dy = particles[i].y - mouse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < mouse.radius) {
+                            ctx.strokeStyle = `rgba(45, 212, 191, ${0.35 * (1 - dist / mouse.radius)})`;
+                            ctx.lineWidth = 1.2;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animateParticles();
+
+            /* =========================================================
+               5. INTERACTIVE SKILL BARS (CATEGORY SWITCHER)
+            ========================================================= */
+            const skillsData = {
+                frontend: [
+                    { name: 'TypeScript & JavaScript (ES2024)', level: 96 },
+                    { name: 'React, Next.js & Server Components', level: 95 },
+                    { name: 'Tailwind CSS & Modern CSS Architecture', level: 94 },
+                    { name: 'Web Accessibility (WCAG AAA) & Performance', level: 90 }
+                ],
+                backend: [
+                    { name: 'Node.js, Express & Fastify', level: 90 },
+                    { name: 'PostgreSQL, Prisma & Database Modeling', level: 88 },
+                    { name: 'Python & FastAPI Microservices', level: 84 },
+                    { name: 'AWS / Edge Serverless Infrastructure', level: 82 }
+                ],
+                design: [
+                    { name: 'Figma Prototyping & Design Systems', level: 92 },
+                    { name: 'LLM Integration, RAG & Streaming UI', level: 89 },
+                    { name: 'Motion Design & Micro-interactions', level: 91 },
+                    { name: 'User Research & Usability Testing', level: 85 }
+                ]
+            };
+
+            const skillsContainer = document.getElementById('skills-container');
+            const skillTabBtns = document.querySelectorAll('.skill-tab-btn');
+
+            function renderSkills(category) {
+                const items = skillsData[category];
+                skillsContainer.innerHTML = items.map(skill => `
+                    <div>
+                        <div class="flex justify-between text-sm font-medium mb-1.5">
+                            <span>${skill.name}</span>
+                            <span class="font-mono text-brand-600 dark:text-brand-400">${skill.level}%</span>
+                        </div>
+                        <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                            <div class="skill-progress h-full rounded-full bg-gradient-to-r from-brand-600 to-accent-400 transition-all duration-700 ease-out" style="width: 0%" data-target="${skill.level}%"></div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Trigger bar fill animation on next frame
+                requestAnimationFrame(() => {
+                    document.querySelectorAll('.skill-progress').forEach(bar => {
+                        bar.style.width = bar.dataset.target;
+                    });
+                });
+            }
+
+            skillTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    skillTabBtns.forEach(b => {
+                        b.classList.remove('bg-white', 'dark:bg-slate-950', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
+                        b.classList.add('text-slate-600', 'dark:text-slate-400');
+                    });
+                    btn.classList.add('bg-white', 'dark:bg-slate-950', 'text-brand-600', 'dark:text-brand-400', 'shadow-sm');
+                    btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+                    renderSkills(btn.dataset.skillCat);
+                });
+            });
+
+            renderSkills('frontend');
+
+            /* =========================================================
+               6. FEATURED PROJECTS & FILTERING + MODAL POPUP
+            ========================================================= */
+            const projects = [
+                {
+                    id: 1,
+                    title: 'PulseFlow Analytics',
+                    category: 'web',
+                    categoryLabel: 'Web App',
+                    year: '2025',
+                    summary: 'Real-time product telemetry and funnel visualization platform handling 50k+ events per second.',
+                    description: 'PulseFlow empowers product teams to inspect user journeys in real time without writing SQL. Built with a zero-latency streaming ingestion pipeline and custom WebGL-accelerated charts.',
+                    image: 'https://placehold.co/800x450/312e81/a5b4fc?text=PulseFlow+Analytics+Dashboard',
+                    tags: ['React', 'TypeScript', 'ClickHouse', 'Tailwind CSS', 'WebSockets'],
+                    highlights: [
+                        'Engineered virtualized data tables capable of scrolling 1M+ rows at 60fps.',
+                        'Reduced dashboard initial load latency from 2.4s to 380ms via edge caching.',
+                        'Adopted by 140+ B2B SaaS teams within first quarter of launch.'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                },
+                {
+                    id: 2,
+                    title: 'SynthCode Studio',
+                    category: 'ai',
+                    categoryLabel: 'AI / Tool',
+                    year: '2025',
+                    summary: 'Context-aware AI pair programmer and automated PR reviewer integrated directly into browser sandboxes.',
+                    description: 'SynthCode indexes repository AST graphs locally to provide hyper-accurate refactoring suggestions, inline unit test generation, and interactive diff explanations.',
+                    image: 'https://placehold.co/800x450/0f766e/99f6e4?text=SynthCode+AI+Workspace',
+                    tags: ['Next.js', 'Python', 'Tree-sitter', 'LLM Streaming', 'WebContainers'],
+                    highlights: [
+                        'Implemented AST-based semantic chunking improving context relevance by 38%.',
+                        'Built an in-browser Node.js execution sandbox for instant code verification.',
+                        'Featured on Product Hunt (#2 Developer Tool of the Week).'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                },
+                {
+                    id: 3,
+                    title: 'Prism UI Design System',
+                    category: 'design',
+                    categoryLabel: 'Design System',
+                    year: '2024',
+                    summary: 'Multi-brand accessible component library with automated Figma-to-code design token synchronization.',
+                    description: 'Prism bridges design and engineering with 45+ headless, WCAG AAA compliant primitives, automatic dark mode contrast validation, and zero-runtime CSS tokens.',
+                    image: 'https://placehold.co/800x450/4338ca/e0e7ff?text=Prism+UI+Component+Kit',
+                    tags: ['Figma API', 'React', 'Radix Primitives', 'Storybook', 'CSS Variables'],
+                    highlights: [
+                        'Automated GitHub Action pipeline syncing Figma variables directly to npm releases.',
+                        'Cut UI prototyping-to-production handoff time by 50% across 6 product squads.',
+                        'Open-sourced core token compiler with over 3,400 GitHub stars.'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                },
+                {
+                    id: 4,
+                    title: 'Kinetix Spatial Canvas',
+                    category: 'web',
+                    categoryLabel: 'Web App',
+                    year: '2024',
+                    summary: 'Multiplayer infinite whiteboard and moodboarding workspace with CRDT conflict-free syncing.',
+                    description: 'Designed for remote creative directors, Kinetix blends vector drawing, rich media embeds, and spatial audio rooms on an infinite 60fps HTML5 canvas.',
+                    image: 'https://placehold.co/800x450/1e1b4b/818cf8?text=Kinetix+Infinite+Canvas',
+                    tags: ['Canvas API', 'Yjs CRDT', 'TypeScript', 'WebRTC', 'Tailwind'],
+                    highlights: [
+                        'Implemented quadtree spatial indexing to render 10,000+ nodes smoothly.',
+                        'Offline-first local persistence with automatic peer-to-peer state reconciliation.',
+                        'Zero-lag cursor presence with custom spring physics interpolation.'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                },
+                {
+                    id: 5,
+                    title: 'DocuMind RAG Engine',
+                    category: 'ai',
+                    categoryLabel: 'AI / Tool',
+                    year: '2024',
+                    summary: 'Privacy-first document intelligence workspace with citation-backed answers and PDF visual grounding.',
+                    description: 'Upload technical manuals, financial filings, or research papers and query them with verifiable bounding-box highlights directly on the source pages.',
+                    image: 'https://placehold.co/800x450/115e59/5eead4?text=DocuMind+Visual+RAG',
+                    tags: ['FastAPI', 'pgvector', 'React', 'PDF.js', 'Docker'],
+                    highlights: [
+                        'Hybrid dense + BM25 sparse retrieval pipeline with cross-encoder reranking.',
+                        'Interactive citation pills that smoothly scroll and highlight exact PDF paragraphs.',
+                        'Supports air-gapped local LLM deployment via Ollama.'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                },
+                {
+                    id: 6,
+                    title: 'ChromaTone Palette Lab',
+                    category: 'design',
+                    categoryLabel: 'Design System',
+                    year: '2023',
+                    summary: 'Perceptually uniform OKLCH color scale generator for accessible UI themes.',
+                    description: 'ChromaTone solves muddy gradients and unpredictable contrast ratios by computing color ramps in the OKLCH color space with real-time APCA contrast scoring.',
+                    image: 'https://placehold.co/800x450/3730a3/c7d2fe?text=ChromaTone+OKLCH+Lab',
+                    tags: ['OKLCH', 'Vanilla JS', 'Tailwind Plugin', 'SVG', 'APCA'],
+                    highlights: [
+                        'One-click export to Tailwind CSS v4, CSS Custom Properties, and Figma Tokens.',
+                        'Built-in color-blindness simulator (Protanopia, Deuteranopia, Tritanopia).',
+                        'Used daily by over 18,000 UI designers and frontend developers.'
+                    ],
+                    liveUrl: 'https://example.com',
+                    repoUrl: 'https://github.com'
+                }
+            ];
+
+            const projectsGrid = document.getElementById('projects-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            function renderProjects(filter = 'all') {
+                const filtered = filter === 'all' 
+                    ? projects 
+                    : projects.filter(p => p.category === filter);
+
+                projectsGrid.innerHTML = filtered.map(project => `
+                    <article data-project-id="${project.id}" class="project-card group cursor-pointer rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-brand-500/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800">
+                            <img src="${project.image}" alt="${project.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-950/75 text-white backdrop-blur-md">
+                                    ${project.categoryLabel}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <h3 class="font-bold text-lg group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${project.title}</h3>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-brand-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-5 flex-1">
+                                ${project.summary}
+                            </p>
+                            <div class="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800/80">
+                                ${project.tags.slice(0, 3).map(tag => `
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${tag}</span>
+                                `).join('')}
+                                ${project.tags.length > 3 ? `<span class="px-2 py-1 rounded-lg text-xs font-mono text-slate-400">+${project.tags.length - 3}</span>` : ''}
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+
+                lucide.createIcons();
+
+                // Attach click listeners to open modal
+                document.querySelectorAll('.project-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const id = parseInt(card.dataset.projectId, 10);
+                        openProjectModal(id);
+                    });
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-500/20');
+                        b.classList.add('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300', 'border', 'border-slate-200', 'dark:border-slate-800');
+                    });
+                    btn.classList.add('bg-brand-600', 'text-white', 'shadow-md', 'shadow-brand-500/20');
+                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'text-slate-600', 'dark:text-slate-300', 'border', 'border-slate-200', 'dark:border-slate-800');
+                    renderProjects(btn.dataset.filter);
+                });
+            });
+
+            renderProjects('all');
+
+            /* =========================================================
+               7. PROJECT CASE STUDY MODAL LOGIC
+            ========================================================= */
+            const modal = document.getElementById('project-modal');
+            const modalContent = document.getElementById('project-modal-content');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            function openProjectModal(projectId) {
+                const project = projects.find(p => p.id === projectId);
+                if (!project) return;
+
+                document.getElementById('modal-image').src = project.image;
+                document.getElementById('modal-category').textContent = project.categoryLabel;
+                document.getElementById('modal-year').textContent = project.year;
+                document.getElementById('modal-title').textContent = project.title;
+                document.getElementById('modal-description').textContent = project.description;
+                document.getElementById('modal-live-link').href = project.liveUrl;
+                document.getElementById('modal-repo-link').href = project.repoUrl;
+
+                document.getElementById('modal-highlights').innerHTML = project.highlights.map(item => `
+                    <li class="flex items-start gap-2.5">
+                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-500 shrink-0"></span>
+                        <span>${item}</span>
+                    </li>
+                `).join('');
+
+                document.getElementById('modal-tags').innerHTML = project.tags.map(tag => `
+                    <span class="px-3 py-1 rounded-xl text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${tag}</span>
+                `).join('');
+
+                modal.classList.remove('invisible', 'opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeProjectModal() {
+                modal.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('invisible');
+                    document.body.style.overflow = '';
+                }, 250);
+            }
+
+            closeModalBtn.addEventListener('click', closeProjectModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeProjectModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('invisible')) {
+                    closeProjectModal();
+                }
+            });
+
+            /* =========================================================
+               8. COPY-TO-CLIPBOARD EMAIL (IFRAME SAFE)
+            ========================================================= */
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailText = document.getElementById('email-text').textContent.trim();
+            const copyIcon = document.getElementById('copy-icon');
+            const checkIcon = document.getElementById('check-icon');
+            const copyLabel = document.getElementById('copy-label');
+
+            copyEmailBtn.addEventListener('click', () => {
+                // Fallback-safe copy using temporary textarea + execCommand
+                const tempInput = document.createElement('textarea');
+                tempInput.value = emailText;
+                tempInput.style.position = 'fixed';
+                tempInput.style.opacity = '0';
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    copyIcon.classList.add('hidden');
+                    checkIcon.classList.remove('hidden');
+                    copyLabel.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyIcon.classList.remove('hidden');
+                        checkIcon.classList.add('hidden');
+                        copyLabel.textContent = 'Copy';
+                    }, 2200);
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(tempInput);
+            });
+
+            /* =========================================================
+               9. CONTACT FORM VALIDATION
+            ========================================================= */
+            const contactForm = document.getElementById('contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const formFeedback = document.getElementById('form-feedback');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Validate Name
+                const nameError = document.getElementById('name-error');
+                if (nameInput.value.trim().length < 2) {
+                    nameError.classList.remove('hidden');
+                    nameInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    nameError.classList.add('hidden');
+                    nameInput.classList.remove('border-rose-500');
+                }
+
+                // Validate Email
+                const emailError = document.getElementById('email-error');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    emailError.classList.remove('hidden');
+                    emailInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    emailError.classList.add('hidden');
+                    emailInput.classList.remove('border-rose-500');
+                }
+
+                // Validate Message
+                const messageError = document.getElementById('message-error');
+                if (messageInput.value.trim().length < 10) {
+                    messageError.classList.remove('hidden');
+                    messageInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    messageError.classList.add('hidden');
+                    messageInput.classList.remove('border-rose-500');
+                }
+
+                if (isValid) {
+                    const submitBtn = document.getElementById('submit-btn');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span>Sending...</span>';
+
+                    setTimeout(() => {
+                        contactForm.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Send Message</span><i data-lucide="send" class="w-4 h-4"></i>';
+                        lucide.createIcons();
+                        formFeedback.classList.remove('hidden');
+                        setTimeout(() => formFeedback.classList.add('hidden'), 5000);
+                    }, 600);
+                }
+            });
+
+            /* =========================================================
+               10. SCROLL REVEAL & ACTIVE NAV HIGHLIGHTING
+            ========================================================= */
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Active Nav Link on Scroll
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let currentSection = '';
+                const scrollY = window.scrollY + 140;
+
+                sections.forEach(section => {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollY >= top && scrollY < top + height) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400', 'font-semibold');
+                    if (link.dataset.section === currentSection) {
+                        link.classList.add('bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400', 'font-semibold');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
